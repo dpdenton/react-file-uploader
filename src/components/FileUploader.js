@@ -65,7 +65,8 @@ class FileUploader extends React.Component {
             request: null,
             response: null,
             readyState: null,
-            uploadData: null,
+            fileData: null,
+            file: props.file,
 
             // func references to start / abort request
             uploadFile: null,
@@ -93,7 +94,7 @@ class FileUploader extends React.Component {
     componentDidMount() {
         if (this.props.readFile) {
             const reader = new global.FileReader();
-            reader.onload = e => this.onUploadDataReady(e);
+            reader.onload = e => this.onFileDataReady(e);
             reader.readAsDataURL(this.props.file);
         }
         this.onUploadReady(this.xhr);
@@ -121,17 +122,19 @@ class FileUploader extends React.Component {
         this.xhr.onreadystatechange = null;
     }
 
-    onUploadDataReady(event) {
+    onFileDataReady(event) {
         // don't call _event because it isn't part of the sequential request state.
         this.setState({
-            uploadData: event.target.result,
+            fileData: event.target.result,
         });
-        this.props.onUploadDataReady(event, this.state);
+        this.props.onFileDataReady(event, this.state);
     }
 
     onUploadReady(event) {
         // provide ref to upload file if not immediately invoked.
-        const newState = !this.props.autoUpload ? {uploadFile: this.uploadFile} : {};
+        const newState = !this.props.autoUpload
+            ? {file: this.props.file, uploadFile: this.uploadFile}
+            : {file: this.props.file};
         this._onEvent(FileUploader.UPLOAD_READY, event, newState);
     }
 
@@ -267,7 +270,6 @@ FileUploader.propTypes = {
     formData: PropTypes.object,
 
     // request upload events
-    onUploadDataReady: PropTypes.func,
     onUploadReady: PropTypes.func,
     onUploadStart: PropTypes.func,
     onUploadProgress: PropTypes.func,
@@ -276,6 +278,7 @@ FileUploader.propTypes = {
     onDownloadProgress: PropTypes.func,
     onDownloadComplete: PropTypes.func,
     onReadyStateChange: PropTypes.func,
+    onFileDataReady: PropTypes.func,
 
     // request events
     onError: PropTypes.func,
@@ -293,8 +296,6 @@ FileUploader.defaultProps = {
     headers: {'X-Requested-With': 'XMLHttpRequest'},
     formData: {},
     onUploadReady: () => {
-    },
-    onUploadDataReady: () => {
     },
     onUploadStart: () => {
     },
@@ -316,6 +317,8 @@ FileUploader.defaultProps = {
     onTimeout: () => {
     },
     onReadyStateChange: () => {
+    },
+    onFileDataReady: () => {
     },
 };
 

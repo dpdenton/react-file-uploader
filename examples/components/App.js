@@ -10,6 +10,7 @@ import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 import {createMuiTheme} from '@material-ui/core/styles';
 
 import ImageUploadDemo from './ImageUploadDemo';
+import Vanilla from "./Vanilla";
 
 const theme = createMuiTheme({
     palette: {
@@ -93,7 +94,9 @@ const App = () => (
             >
                 View the events.
             </Typography>
-            <ImageUploadDemo/>
+
+            <Vanilla/>
+            {/*<ImageUploadDemo/>*/}
         </div>
     </MuiThemeProvider>
 );

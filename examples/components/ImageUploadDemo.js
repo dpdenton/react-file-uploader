@@ -325,7 +325,7 @@ class ImageUploadDemo extends React.Component {
             case FileUploader.UPLOAD_READY:
                 return (
                     <ImagePreview
-                        src={data.uploadData || ''}
+                        src={data.fileData || ''}
                     />
                 );
 
@@ -340,7 +340,7 @@ class ImageUploadDemo extends React.Component {
 
                 return (
                     <ImageProgress
-                        src={data.uploadData}
+                        src={data.fileData}
                         progress={progress}
                         completed={progress === 100}
                     />

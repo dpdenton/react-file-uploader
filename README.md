@@ -2,7 +2,7 @@
 
 A flexible lightbox component for uploading files. Supports multiple files, progress feedback and upload / abort controls.
 
-[DEMO](https://frontend-collective.github.io/react-image-lightbox/)
+[LIVE DEMO](https://reactjs-file-uploader.netlify.com/)
 
 Features
 
@@ -13,57 +13,60 @@ Features
 ## Example
 
 ```jsx
-import React, { Component } from 'react';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
+class Vanilla extends React.Component {
 
-const images = [
-  '//placekitten.com/1500/500',
-  '//placekitten.com/4000/3000',
-  '//placekitten.com/800/1200',
-  '//placekitten.com/1500/1500',
-];
+    constructor(props) {
+        super(props);
+        this.state = {
+            files: [],
+        };
+        this.uploadFiles = this.uploadFiles.bind(this);
+        this.uploadFile = this.uploadFile.bind(this);
+    }
 
-export default class LightboxExample extends Component {
-  constructor(props) {
-    super(props);
+    render() {
+        return (
+            <div>
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={event => this.setState({files: this.state.files.concat(Array.from(event.target.files))})}
+                    multiple
+                />
+                <FileManager
+                    files={this.state.files}
+                >{this.uploadFiles}
+                </FileManager>
+            </div>
+        )
+    }
 
-    this.state = {
-      photoIndex: 0,
-      isOpen: false,
-    };
-  }
+    uploadFiles(files) {
+        return files.map(this.uploadFile);
+    }
 
-  render() {
-    const { photoIndex, isOpen } = this.state;
+    uploadFile(file) {
+        return (
+            <FileUploader
+                key={file.key}
+                file={file}
+                url='https://api.cloudinary.com/v1_1/dpdenton/upload'
+                readFile
+            >{this.fileProgress}
+            </FileUploader>
+        )
+    }
 
-    return (
-      <div>
-        <button type="button" onClick={() => this.setState({ isOpen: true })}>
-          Open Lightbox
-        </button>
+    fileProgress(data) {
+        return (
+            <div>
+                {data.fileData && <img src={data.fileData} width={200} />}
+                {data.uploadFile && <button onClick={data.uploadFile}>Upload File</button>}
+                {data.requestState && data.requestState}
+            </div>
+        )
+    }
 
-        {isOpen && (
-          <Lightbox
-            mainSrc={images[photoIndex]}
-            nextSrc={images[(photoIndex + 1) % images.length]}
-            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-            onCloseRequest={() => this.setState({ isOpen: false })}
-            onMovePrevRequest={() =>
-              this.setState({
-                photoIndex: (photoIndex + images.length - 1) % images.length,
-              })
-            }
-            onMoveNextRequest={() =>
-              this.setState({
-                photoIndex: (photoIndex + 1) % images.length,
-              })
-            }
-          />
-        )}
-      </div>
-    );
-  }
 }
 ```
 
