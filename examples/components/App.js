@@ -95,8 +95,8 @@ const App = () => (
                 View the events.
             </Typography>
 
-            <Vanilla/>
-            {/*<ImageUploadDemo/>*/}
+            {/*<Vanilla/>*/}
+            <ImageUploadDemo/>
         </div>
     </MuiThemeProvider>
 );
