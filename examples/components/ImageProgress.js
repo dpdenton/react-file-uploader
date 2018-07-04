@@ -18,15 +18,15 @@ const ImageProgress = props => {
         position: 'absolute',
         width: '100%',
         height: `${100 - props.progress}%`,
-        transition: 'height 0.2s',
+        transition: 'height 0.5s',
         backgroundColor: 'white',
         opacity: 0.5
     };
 
     const frontStyle = {
         backfaceVisibility: 'hidden',
-        height: 'inherit',
-        width: 'inherit',
+        height: '100%',
+        width: '100%',
         position: 'absolute',
         zIndex: 20,
     };
