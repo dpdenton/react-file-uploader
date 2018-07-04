@@ -71,21 +71,17 @@ class FileUploader extends React.Component {
             uploadFile: null,
             abortRequest: null,
         };
-
         this._onEvent = this._onEvent.bind(this);
-
         this.onUploadStart = this.onUploadStart.bind(this);
         this.onUploadProgress = this.onUploadProgress.bind(this);
         this.onUploadComplete = this.onUploadComplete.bind(this);
         this.onDownloadStart = this.onDownloadStart.bind(this);
         this.onDownloadProgress = this.onDownloadProgress.bind(this);
         this.onDownloadComplete = this.onDownloadComplete.bind(this);
-
         this.onError = this.onError.bind(this);
         this.onAbort = this.onAbort.bind(this);
         this.onTimeout = this.onTimeout.bind(this);
         this.onReadyStateChange = this.onReadyStateChange.bind(this);
-
         this.uploadFile = this.uploadFile.bind(this);
         this.abortRequest = this.abortRequest.bind(this);
     }
@@ -95,13 +91,11 @@ class FileUploader extends React.Component {
     }
 
     componentDidMount() {
-
         if (this.props.readFile) {
             const reader = new global.FileReader();
             reader.onload = e => this.onUploadDataReady(e);
             reader.readAsDataURL(this.props.file);
         }
-
         this.onUploadReady(this.xhr);
         this.props.autoUpload && this.uploadFile();
     }
@@ -118,7 +112,6 @@ class FileUploader extends React.Component {
     }
 
     componentWillUnmount() {
-
         this.xhr.upload.removeEventListener("loadstart", this.onUploadStart);
         this.xhr.upload.removeEventListener("progress", this.onUploadProgress);
         this.xhr.upload.removeEventListener("loadend", this.onUploadComplete);
@@ -194,9 +187,7 @@ class FileUploader extends React.Component {
     }
 
     onReadyStateChange(event) {
-
         this.props.onReadyStateChange(event);
-
         switch (event.currentTarget.readyState) {
             case 2:
                 this.onDownloadStart(event);
@@ -223,7 +214,6 @@ class FileUploader extends React.Component {
     };
 
     _prepareRequest() {
-
         // safe to do this before component has mounted as listeners aren't attached
         // when onreadystatechanges for 'UNSENT' and 'OPEN'.
         this.xhr = new global.XMLHttpRequest();
@@ -285,25 +275,23 @@ FileUploader.propTypes = {
     onDownloadStart: PropTypes.func,
     onDownloadProgress: PropTypes.func,
     onDownloadComplete: PropTypes.func,
+    onReadyStateChange: PropTypes.func,
 
     // request events
     onError: PropTypes.func,
     onAbort: PropTypes.func,
     onTimeout: PropTypes.func,
 
-    onReadyStateChange: PropTypes.func,
-
     children: PropTypes.func.isRequired,
 };
 
 FileUploader.defaultProps = {
-
+    
     autoUpload: false,
-    readFile: true,
+    readFile: false,
     method: 'POST',
-    headers: {},
+    headers: {'X-Requested-With': 'XMLHttpRequest'},
     formData: {},
-
     onUploadReady: () => {
     },
     onUploadDataReady: () => {

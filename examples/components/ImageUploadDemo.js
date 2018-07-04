@@ -183,15 +183,13 @@ class ImageUploadDemo extends React.Component {
             <FileUploader
                 key={file.key}
                 file={file}
+                readFile
                 url={CLOUD_URL}
                 autoUpload={this.state.autoUpload}
                 formData={{
                     file,
                     upload_preset: 'public',
                     tags: 'demo_upload',
-                }}
-                headers={{
-                    'X-Requested-With': 'XMLHttpRequest',
                 }}
                 onUploadReady={event => {
                     const {progress} = this.state;
