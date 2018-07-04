@@ -1,0 +1,14 @@
+{
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": 0,
+    "react/sort-comp": 0,
+    "react/no-unused-prop-types": 0,
+    "react/forbid-prop-types": 0,
+    "no-underscore-dangle": 0,
+    "no-bitwise": 0
+  }
+}
