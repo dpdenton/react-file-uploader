@@ -9,7 +9,7 @@ npm-debug.log
 *.ipr
 *.iws
 *.sublime-*
-.idea/
+.idea/*
 *.DS_Store
 
 # Build directories (Will be preserved by npm)
@@ -17,3 +17,4 @@ dist
 build
 /style.css
 /style.css.map
+
