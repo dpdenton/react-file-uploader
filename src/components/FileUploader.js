@@ -286,7 +286,7 @@ FileUploader.propTypes = {
 };
 
 FileUploader.defaultProps = {
-    
+
     autoUpload: false,
     readFile: false,
     method: 'POST',

@@ -1,21 +1,14 @@
-# React Image Lightbox
+# React File Uploader
 
-[![NPM](https://nodei.co/npm/react-image-lightbox.png)](https://npmjs.org/package/react-image-lightbox) [![Build Status](https://travis-ci.org/frontend-collective/react-image-lightbox.svg?branch=master)](https://travis-ci.org/frontend-collective/react-image-lightbox) [![Coverage Status](https://coveralls.io/repos/github/frontend-collective/react-image-lightbox/badge.svg?branch=master)](https://coveralls.io/github/frontend-collective/react-image-lightbox?branch=master)
-
-[![RIL Snapshot](https://user-images.githubusercontent.com/4413963/31209033-78f60df0-a9c3-11e7-8f83-69998d46973e.png)](https://frontend-collective.github.io/react-image-lightbox/)
-
-A flexible lightbox component for displaying images in a React project.
+A flexible lightbox component for uploading files. Supports multiple files, progress feedback and upload / abort controls.
 
 [DEMO](https://frontend-collective.github.io/react-image-lightbox/)
 
 Features
 
-* Keyboard shortcuts (with rate limiting)
-* Image Zoom
-* Flexible rendering using src values assigned on the fly
-* Image preloading for smoother viewing
-* Mobile friendly, with pinch to zoom and swipe (Thanks, [@webcarrot](https://github.com/webcarrot)!)
-* No external CSS
+* Multiple files
+* Progress feedback
+* Upload / abort controls
 
 ## Example
 
