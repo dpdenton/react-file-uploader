@@ -21,6 +21,9 @@ import SelectFileButton from "./SelectFileButton";
 import FileManager from '../../src/components/FileManager';
 import FileUploader from '../../src/components/FileUploader';
 
+const CLOUD_NAME = 'dpdenton';
+const CLOUD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`;
+
 const styles = {
 
     containerStyle: {
@@ -167,9 +170,9 @@ class ImageUploadDemo extends React.Component {
                 </FileManager>
 
                 {this.state.showEvents
-                    && this.selectedIndex !== null
-                    && Object.keys(this.state.events).length > 0
-                    && this.renderEvents()}
+                && this.selectedIndex !== null
+                && Object.keys(this.state.events).length > 0
+                && this.renderEvents()}
             </div>
         );
     }
@@ -180,12 +183,12 @@ class ImageUploadDemo extends React.Component {
             <FileUploader
                 key={file.key}
                 file={file}
-                url='https://api.cloudinary.com/v1_1/hubbite/upload'
+                url={CLOUD_URL}
                 autoUpload={this.state.autoUpload}
                 formData={{
                     file,
-                    upload_preset: 'mobile',
-                    tags: 'browser_upload',
+                    upload_preset: 'public',
+                    tags: 'demo_upload',
                 }}
                 headers={{
                     'X-Requested-With': 'XMLHttpRequest',
@@ -283,7 +286,7 @@ class ImageUploadDemo extends React.Component {
                             color="primary"
                             onClick={data.uploadFile}
                         >
-                            {progress}
+                            {progress || 0}
                         </Button>
                         <CircularProgress
                             style={styles.progressStyle}
@@ -305,14 +308,16 @@ class ImageUploadDemo extends React.Component {
                         >
                             <Icon>check</Icon>
                         </Button>
-
                     </div>
                 );
+
+            case FileUploader.ERROR:
+                return <p>Error</p>;
+
             default:
-                break;
+                return <p>Something has gone wrong!</p>;
         }
 
-        return null;
     }
 
     static renderImage(data) {
@@ -348,7 +353,7 @@ class ImageUploadDemo extends React.Component {
             case FileUploader.DOWNLOAD_COMPLETE:
                 return (
                     <ImageResponse
-                        cloudName="hubbite"
+                        cloudName={CLOUD_NAME}
                         publicId={data.response.public_id}
                         crop="fill"
                         width={180}
@@ -358,10 +363,8 @@ class ImageUploadDemo extends React.Component {
                     />
                 );
             default:
-                break;
+                return <p>Something has gone wrong!</p>;
         }
-
-        return null;
     }
 
     renderEvents() {

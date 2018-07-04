@@ -47,23 +47,29 @@ class FileUploader extends React.Component {
         super(props);
         this.state = {
 
-            uploadFile: null, // (func) start file upload
-            abortRequest: null, // (func) abort file upload
-
-            uploadData: null,
+            // sequential request state
             uploadStart: null,
             uploadProgress: null,
             uploadComplete: null,
+            downloadStart: null,
+            downloadProgress: null,
+            downloadComplete: null,
 
-            // request / response state
-            request: null,
-            response: null,
+            // error state
             error: null,
             abort: null,
             timeout: null,
 
-            readyState: null,
+            // helper references
             requestState: null,
+            request: null,
+            response: null,
+            readyState: null,
+            uploadData: null,
+
+            // func references to start / abort request
+            uploadFile: null,
+            abortRequest: null,
         };
 
         this._onEvent = this._onEvent.bind(this);
@@ -82,12 +88,10 @@ class FileUploader extends React.Component {
 
         this.uploadFile = this.uploadFile.bind(this);
         this.abortRequest = this.abortRequest.bind(this);
-
-        this._prepareRequest();
     }
 
-    render() {
-        return this.props.children(this.state)
+    componentWillMount() {
+        this._prepareRequest();
     }
 
     componentDidMount() {
@@ -99,15 +103,17 @@ class FileUploader extends React.Component {
         }
 
         this.onUploadReady(this.xhr);
+        this.props.autoUpload && this.uploadFile();
+    }
 
-        if (this.props.autoUpload) this.uploadFile();
+    render() {
+        return this.props.children(this.state)
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.autoUpload !== this.props.autoUpload) {
-            if (nextProps.autoUpload) {
-                this.uploadFile();
-            }
+        // make sure uploaded hasn't already started and that the upload prop has changed to true;
+        if (this.state.uploadStart === null && nextProps.autoUpload && nextProps.autoUpload !== this.props.autoUpload) {
+            this.uploadFile();
         }
     }
 
@@ -153,23 +159,23 @@ class FileUploader extends React.Component {
         this._onEvent(FileUploader.UPLOAD_COMPLETE, event);
     }
 
-    onDownloadStart(event, xhr) {
-        this._onEvent(FileUploader.DOWNLOAD_START, xhr);
+    onDownloadStart(event) {
+        this._onEvent(FileUploader.DOWNLOAD_START, event);
     }
 
-    onDownloadProgress(event, xhr) {
+    onDownloadProgress(event) {
         const newState = {
-            response: JSON.parse(xhr.responseText),
+            response: JSON.parse(event.currentTarget.responseText),
         };
-        this._onEvent(FileUploader.DOWNLOAD_PROGRESS, xhr, newState);
+        this._onEvent(FileUploader.DOWNLOAD_PROGRESS, event, newState);
     }
 
-    onDownloadComplete(event, xhr) {
+    onDownloadComplete(event) {
         const newState = {
-            response: JSON.parse(xhr.responseText),
+            response: JSON.parse(event.currentTarget.responseText),
             abortRequest: null,
         };
-        this._onEvent(FileUploader.DOWNLOAD_COMPLETE, xhr, newState);
+        this._onEvent(FileUploader.DOWNLOAD_COMPLETE, event, newState);
     }
 
     onError(event) {
@@ -187,24 +193,19 @@ class FileUploader extends React.Component {
         this._onEvent(FileUploader.TIMEOUT, event);
     }
 
-    onReadyStateChange(event, xhr) {
+    onReadyStateChange(event) {
 
-        if (Number(String(xhr.status).charAt(0)) !== 2) {
-            this.onError({event, xhr});
-            return;
-        }
+        this.props.onReadyStateChange(event);
 
-        this.props.onReadyStateChange(event, xhr);
-
-        switch (xhr.readyState) {
+        switch (event.currentTarget.readyState) {
             case 2:
-                this.onDownloadStart(event, xhr);
+                this.onDownloadStart(event);
                 break;
             case 3:
-                this.onDownloadProgress(event, xhr);
+                this.onDownloadProgress(event);
                 break;
             case 4:
-                this.onDownloadComplete(event, xhr);
+                this.onDownloadComplete(event);
                 break;
             default:
                 break;
@@ -235,8 +236,7 @@ class FileUploader extends React.Component {
         this.xhr.addEventListener("error", this.onError);
         this.xhr.addEventListener("abort", this.onAbort);
         this.xhr.addEventListener("timeout", this.onTimeout);
-
-        this.xhr.onreadystatechange = event => this.onReadyStateChange(event, this.xhr);
+        this.xhr.onreadystatechange = this.onReadyStateChange;
     }
 
     _onEvent(eventName, event, newState = {}) {
@@ -320,7 +320,8 @@ FileUploader.defaultProps = {
     },
     onDownloadComplete: () => {
     },
-    onError: () => {
+    onError: event => {
+        global.alert(event.currentTarget.statusText || 'Something has gone wrong.');
     },
     onAbort: () => {
     },

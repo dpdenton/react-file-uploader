@@ -5,20 +5,19 @@ class FileManager extends React.Component {
 
     constructor(props) {
         super(props);
-        this.fileMap = {};
-        this.addFileToMap = this.addFileToMap.bind(this);
+        this._fileMap = {};
+        this._addFileToMap = this._addFileToMap.bind(this);
     }
 
     componentWillMount() {
-        this.props.files.forEach(this.addFileToMap);
+        this.props.files.forEach(this._addFileToMap);
     }
 
     componentWillReceiveProps(props) {
-        props.files.forEach(this.addFileToMap);
+        props.files.forEach(this._addFileToMap);
     }
 
     render() {
-
         const keys = [];
         const files = this.props.files.filter(file => {
             const key = FileManager.generateKey(file.name + file.size + file.lastModified);
@@ -28,9 +27,9 @@ class FileManager extends React.Component {
         return this.props.children(files);
     }
 
-    addFileToMap(file) {
+    _addFileToMap(file) {
         const key = FileManager.generateKey(file.name + file.size + file.lastModified);
-        this.fileMap[key] = file;
+        this._fileMap[key] = file;
     }
 
     static generateKey(s) {
