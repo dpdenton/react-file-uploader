@@ -1,6 +1,6 @@
 {
   "name": "reactjs-file-uploader",
-  "version": "1.0.6",
+  "version": "0.1.7",
   "description": "Flexible React file uploader supporting progress feedback, multiple images and upload/abort controls.",
   "scripts": {
     "build": "npm run clean && cross-env NODE_ENV=production TARGET=umd webpack --bail",
@@ -28,11 +28,6 @@
     "David Denton"
   ],
   "license": "MIT",
-  "browserslist": [
-    "IE >= 11",
-    "last 2 versions",
-    "> 1%"
-  ],
   "dependencies": {
     "prop-types": "^15.6.2"
   },
