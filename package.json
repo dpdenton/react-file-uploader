@@ -1,6 +1,6 @@
 {
   "name": "reactjs-file-uploader",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Flexible React file uploader supporting progress feedback, multiple images and upload/abort controls.",
   "scripts": {
     "build": "npm run clean && cross-env NODE_ENV=production TARGET=umd webpack --bail",
