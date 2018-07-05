@@ -1,4 +1,4 @@
-# React File Uploader
+# ReactJS File Uploader
 
 A flexible React component for uploading files. Supports multiple files, progress feedback and upload / abort controls.
 
@@ -35,7 +35,8 @@ class VanillaExample extends React.Component {
                 />
                 <FileManager
                     files={this.state.files}
-                >{this.uploadFiles}
+                >
+                    {this.uploadFiles}
                 </FileManager>
             </div>
         )
@@ -142,6 +143,19 @@ class VanillaExample extends React.Component {
 | onError                         | func: (Event) => void              |() => {} | Hook to `error` event.
 | onAbort                         | func: (Event) => void              |() => {} | Hook to `abort` event.
 | onTimeout                       | func: (Event) => void              |() => {} | Hook to `timeout` event.
+
+
+## Options FileManager
+
+The FileManager is an optional HOC that manages the files that are sent to the FileUploader.
+
+It ensures no duplicate are sent to be uploaded and provides each file a unique key attribute.
+
+| Property                        |  Type                              | Default | Description                                                                                                                                                   |
+| :------------------------------ | :----:                             | :----:  | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| children<br/>_(required)_       | func: (file) => React.Node         |         | Returns File from Array of File objects.                                                                                                                                    |
+| files<br/>_(required)_          | array: File                        |         | Array or FileList of File objects.                                                                                                                                    |
+
 
 ## License
 
