@@ -191,37 +191,30 @@ class ImageUploadDemo extends React.Component {
                     tags: 'demo_upload',
                 }}
                 onUploadReady={event => {
-                    if (!this.state.showEvents) return;
                     const {progress} = this.state;
                     progress[file.key] = 0;
                     this.setState({progress, selectedIndex: file.key});
                     this.addTransitionState(event, FileUploader.UPLOAD_READY, file.key);
                 }}
                 onUploadStart={event => {
-                    if (!this.state.showEvents) return;
                     this.addTransitionState(event, FileUploader.UPLOAD_START, file.key);
                 }}
                 onUploadProgress={event => {
-                    if (!this.state.showEvents) return;
                     const {progress} = this.state;
                     progress[file.key] = event.total ? event.loaded / event.total : 0;
                     this.setState({progress});
                     this.addTransitionState(event, FileUploader.UPLOAD_PROGRESS, file.key);
                 }}
                 onUploadComplete={event => {
-                    if (!this.state.showEvents) return;
                     this.addTransitionState(event, FileUploader.UPLOAD_COMPLETE, file.key);
                 }}
                 onDownloadStart={event => {
-                    if (!this.state.showEvents) return;
                     this.addTransitionState(event, FileUploader.DOWNLOAD_START, file.key);
                 }}
                 onDownloadProgress={event => {
-                    if (!this.state.showEvents) return;
                     this.addTransitionState(event, FileUploader.DOWNLOAD_PROGRESS, file.key);
                 }}
                 onDownloadComplete={event => {
-                    if (!this.state.showEvents) return;
                     const {progress} = this.state;
                     delete progress[file.key];
                     this.setState({progress});

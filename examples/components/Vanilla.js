@@ -52,12 +52,58 @@ class Vanilla extends React.Component {
         )
     }
 
-    static fileProgress(data) {
+    static fileProgress({
+        /*
+        References to the Event objects.
+        Initial state is null and gets assign on each Event.
+         */
+        uploadReady,
+        uploadStart,
+        uploadProgress,
+        uploadComplete,
+        downloadStart,
+        downloadProgress,
+        downloadComplete,
+        error,
+        abort,
+        timeout,
+
+        /*
+        The sequential state of the request
+        enum {
+            uploadReady, uploadStart, uploadProgress, uploadComplete, downloadStart
+            downloadStart, downloadProgress, downloadComplete
+        }
+         */
+        requestState, //
+
+        /*
+        Function references to start / abort request
+          */
+        startUpload,
+        abortRequest,
+
+        /*
+        Request Object reference (XMLHttpReqeust)
+         */
+        request,
+
+        /*
+        Response text Object (JSON)
+         */
+        response,
+
+        /*
+        Data of the file being uploaded (if readData props is true)
+         */
+        fileData,
+
+     }) {
         return (
             <div>
-                {data.fileData && <img src={data.fileData} width={200} alt="Preview"/>}
-                {data.startUpload && <button onClick={data.startUpload}>Upload File</button>}
-                {data.requestState && data.requestState}
+                {fileData && <img src={fileData} width={200} alt="Preview"/>}
+                {startUpload && <button onClick={startUpload}>Upload File</button>}
+                {requestState && requestState}
             </div>
         )
     }

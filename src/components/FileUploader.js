@@ -48,6 +48,7 @@ class FileUploader extends React.Component {
         this.state = {
 
             // sequential request state
+            uploadReady: null,
             uploadStart: null,
             uploadProgress: null,
             uploadComplete: null,
