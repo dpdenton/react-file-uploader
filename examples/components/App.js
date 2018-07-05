@@ -43,7 +43,7 @@ const App = () => (
                 <Typography
                     variant="title"
                     color="inherit"
-                    style={{marginLeft: 20}}
+                    style={{marginLeft: 10}}
                 >
                     ReactJS File Uploader
                 </Typography>
@@ -52,13 +52,28 @@ const App = () => (
                     <IconButton
                         color="inherit"
                     >
-                        <Icon className="fab fa-npm"/>
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{color: 'white'}}
+                            href="https://www.npmjs.com/package/reactjs-file-uploader" target="_blank"
+                        >
+                            <Icon className="fab fa-npm"/>
+                        </a>
                     </IconButton>
+
 
                     <IconButton
                         color="inherit"
                     >
-                        <Icon className="fab fa-github"/>
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{color: 'white'}}
+                            href="https://github.com/dpdenton/reactjs-file-uploader"
+                        >
+                            <Icon className="fab fa-github"/>
+                        </a>
                     </IconButton>
                 </div>
 
