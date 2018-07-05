@@ -9,8 +9,8 @@ const ImagePreview = props => {
         backgroundImage: `url(${props.src})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        width: 'inherit',
-        height: 'inherit',
+        width: 150,
+        height: 150,
     };
 
     return <Paper style={imgPreviewStyle}/>

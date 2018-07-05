@@ -210,7 +210,7 @@ class FileUploader extends React.Component {
         this.xhr.abort();
     };
 
-    uploadFile() {
+    startUpload() {
         const formData = new global.FormData();
         Object.keys(this.props.formData).forEach(key => formData.append(key, this.props.formData[key]));
         this.xhr.send(formData);

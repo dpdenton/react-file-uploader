@@ -10,8 +10,8 @@ const ImageProgress = props => {
         backgroundImage: `url(${props.src})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        width: '100%',
-        height: '100%',
+        width: 150,
+        height: 150,
     };
 
     const imgProgressStyle = {
