@@ -56,7 +56,7 @@ const App = () => (
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{color: 'white'}}
-                            href="https://www.npmjs.com/package/reactjs-file-uploader" target="_blank"
+                            href="https://www.npmjs.com/package/reactjs-file-uploader"
                         >
                             <Icon className="fab fa-npm"/>
                         </a>
