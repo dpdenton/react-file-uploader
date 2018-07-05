@@ -53,6 +53,7 @@ class Vanilla extends React.Component {
     }
 
     static fileProgress({
+
         /*
         References to the Event objects.
         Initial state is null and gets assign on each Event.
