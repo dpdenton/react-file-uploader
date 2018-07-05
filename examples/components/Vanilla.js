@@ -40,16 +40,22 @@ class Vanilla extends React.Component {
                 key={file.key}
                 file={file}
                 url='https://api.cloudinary.com/v1_1/dpdenton/upload'
+                formData={{
+                    file,
+                    upload_preset: 'public',
+                    tags: 'vanilla',
+                }}
                 readFile
-            >{this.fileProgress}
+            >
+                {this.fileProgress}
             </FileUploader>
         )
     }
 
-    fileProgress(data) {
+    static fileProgress(data) {
         return (
             <div>
-                {data.fileData && <img src={data.fileData} width={200} />}
+                {data.fileData && <img src={data.fileData} width={200} alt="Preview"/>}
                 {data.startUpload && <button onClick={data.startUpload}>Upload File</button>}
                 {data.requestState && data.requestState}
             </div>

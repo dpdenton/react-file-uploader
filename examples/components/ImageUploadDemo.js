@@ -149,18 +149,17 @@ class ImageUploadDemo extends React.Component {
                         }
                         label="Auto Upload"
                     />
-                    {/*<FormControlLabel*/}
-                        {/*style={styles.controlStyle}*/}
-                        {/*control={*/}
-                            {/*<Switch*/}
-                                {/*color='primary'*/}
-                                {/*checked={this.state.showEvents}*/}
-                                {/*onClick={() => this.setState({showEvents: !this.state.showEvents})}*/}
-                            {/*/>*/}
-                        {/*}*/}
-                        {/*label="Show Events"*/}
-                    {/*/>*/}
-
+                    <FormControlLabel
+                        style={styles.controlStyle}
+                        control={
+                            <Switch
+                                color='primary'
+                                checked={this.state.showEvents}
+                                onClick={() => this.setState({showEvents: !this.state.showEvents})}
+                            />
+                        }
+                        label="Show Events"
+                    />
                 </div>
 
                 <FileManager
@@ -191,36 +190,43 @@ class ImageUploadDemo extends React.Component {
                     upload_preset: 'public',
                     tags: 'demo_upload',
                 }}
-                // onUploadReady={event => {
-                //     const {progress} = this.state;
-                //     progress[file.key] = 0;
-                //     this.setState({progress, selectedIndex: file.key});
-                //     this.addTransitionState(event, FileUploader.UPLOAD_READY, file.key);
-                // }}
-                // onUploadStart={event => {
-                //     this.addTransitionState(event, FileUploader.UPLOAD_START, file.key);
-                // }}
-                // onUploadProgress={event => {
-                //     const {progress} = this.state;
-                //     progress[file.key] = event.total ? event.loaded / event.total : 0;
-                //     this.setState({progress});
-                //     this.addTransitionState(event, FileUploader.UPLOAD_PROGRESS, file.key);
-                // }}
-                // onUploadComplete={event => {
-                //     this.addTransitionState(event, FileUploader.UPLOAD_COMPLETE, file.key);
-                // }}
-                // onDownloadStart={event => {
-                //     this.addTransitionState(event, FileUploader.DOWNLOAD_START, file.key);
-                // }}
-                // onDownloadProgress={event => {
-                //     this.addTransitionState(event, FileUploader.DOWNLOAD_PROGRESS, file.key);
-                // }}
-                // onDownloadComplete={event => {
-                //     const {progress} = this.state;
-                //     delete progress[file.key];
-                //     this.setState({progress});
-                //     this.addTransitionState(event, FileUploader.DOWNLOAD_COMPLETE, file.key);
-                // }}
+                onUploadReady={event => {
+                    if (!this.state.showEvents) return;
+                    const {progress} = this.state;
+                    progress[file.key] = 0;
+                    this.setState({progress, selectedIndex: file.key});
+                    this.addTransitionState(event, FileUploader.UPLOAD_READY, file.key);
+                }}
+                onUploadStart={event => {
+                    if (!this.state.showEvents) return;
+                    this.addTransitionState(event, FileUploader.UPLOAD_START, file.key);
+                }}
+                onUploadProgress={event => {
+                    if (!this.state.showEvents) return;
+                    const {progress} = this.state;
+                    progress[file.key] = event.total ? event.loaded / event.total : 0;
+                    this.setState({progress});
+                    this.addTransitionState(event, FileUploader.UPLOAD_PROGRESS, file.key);
+                }}
+                onUploadComplete={event => {
+                    if (!this.state.showEvents) return;
+                    this.addTransitionState(event, FileUploader.UPLOAD_COMPLETE, file.key);
+                }}
+                onDownloadStart={event => {
+                    if (!this.state.showEvents) return;
+                    this.addTransitionState(event, FileUploader.DOWNLOAD_START, file.key);
+                }}
+                onDownloadProgress={event => {
+                    if (!this.state.showEvents) return;
+                    this.addTransitionState(event, FileUploader.DOWNLOAD_PROGRESS, file.key);
+                }}
+                onDownloadComplete={event => {
+                    if (!this.state.showEvents) return;
+                    const {progress} = this.state;
+                    delete progress[file.key];
+                    this.setState({progress});
+                    this.addTransitionState(event, FileUploader.DOWNLOAD_COMPLETE, file.key);
+                }}
             >{data => {
 
                 const fileContainerStyle = {
