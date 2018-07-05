@@ -126,14 +126,14 @@ class VanillaExample extends React.Component {
 
 | Property                        |  Type                              | Default | Description                                                                                                                                                   |
 | :------------------------------ | :----:                             | :----:  | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| children<br/>_(required)_       | func: (progressData) => React.Node |         | Returns state of FileUploader instance. See above example for state structure.                                                                                                                                    |
+| children<br/>_(required)_       | func: state => React.Node          |         | Returns state of FileUploader instance. See above example for state structure.                                                                                                                                    |
 | file<br/>_(required)_           | object: File                       |         | File objects are generally retrieved from a FileList object returned as a result of a user selecting files using the <input> element, from a drag and drop operation's DataTransfer object, or from the mozGetAsFile() API on an HTMLCanvasElement.                                                                                                                                   |
 | url<br/>_(required)_            | string                             |         | Upload url endpoint.                                                                                                                                  |
 | formData                        | object: { string: any }            |  `{}`   | `key: value` formData to be sent with the request. If sending the file this needs to be explicit e.g. `formData={{file_field: file}}`                                                                                                                                  |
 | autoUpload                      | bool                               | `false` | If `true` immediately start upload when file is passed to Component.                                                                                                                                |
 | readFile                        | bool                               | `false` | If `true` provides a reference to the file data in the component state returned by `children`                                                                                                                                 |
-| onUploadReady                   | func: (event, prevState) => void   |() => {} | Hook to uploadReady event.
-| onUploadStart                   | func: (event, prevState) => void   |() => {} | Hook to onUploadStart event.
+| onUploadReady                   | func: event => void                |() => {} | Hook to uploadReady event.
+| onUploadStart                   | func: event => void                |() => {} | Hook to onUploadStart event.
 
 ## License
 
