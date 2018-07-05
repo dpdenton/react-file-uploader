@@ -69,7 +69,7 @@ class FileUploader extends React.Component {
             file: props.file,
 
             // func references to start / abort request
-            uploadFile: null,
+            startUpload: null,
             abortRequest: null,
         };
         this._onEvent = this._onEvent.bind(this);
@@ -83,7 +83,7 @@ class FileUploader extends React.Component {
         this.onAbort = this.onAbort.bind(this);
         this.onTimeout = this.onTimeout.bind(this);
         this.onReadyStateChange = this.onReadyStateChange.bind(this);
-        this.uploadFile = this.uploadFile.bind(this);
+        this.startUpload = this.startUpload.bind(this);
         this.abortRequest = this.abortRequest.bind(this);
     }
 
@@ -98,7 +98,7 @@ class FileUploader extends React.Component {
             reader.readAsDataURL(this.props.file);
         }
         this.onUploadReady(this.xhr);
-        this.props.autoUpload && this.uploadFile();
+        this.props.autoUpload && this.startUpload();
     }
 
     render() {
@@ -108,7 +108,7 @@ class FileUploader extends React.Component {
     componentWillReceiveProps(nextProps) {
         // make sure uploaded hasn't already started and that the upload prop has changed to true;
         if (this.state.uploadStart === null && nextProps.autoUpload && nextProps.autoUpload !== this.props.autoUpload) {
-            this.uploadFile();
+            this.startUpload();
         }
     }
 
@@ -133,7 +133,7 @@ class FileUploader extends React.Component {
     onUploadReady(event) {
         // provide ref to upload file if not immediately invoked.
         const newState = !this.props.autoUpload
-            ? {file: this.props.file, uploadFile: this.uploadFile}
+            ? {file: this.props.file, startUpload: this.startUpload}
             : {file: this.props.file};
         this._onEvent(FileUploader.UPLOAD_READY, event, newState);
     }
@@ -141,7 +141,7 @@ class FileUploader extends React.Component {
     onUploadStart(event) {
         const newState = {
             request: this.xhr,
-            uploadFile: null,
+            startUpload: null,
             abortRequest: this.abortRequest,
         };
         this._onEvent(FileUploader.UPLOAD_START, event, newState);

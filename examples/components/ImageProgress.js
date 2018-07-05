@@ -47,12 +47,12 @@ const ImageProgress = props => {
         transition: 'all 1.0s linear',
         transformStyle: 'preserve-3d',
         transform: `rotateY(${props.completed ? '180' : 0}deg)`,
-        height: 'inherit',
-        width: 'inherit',
+        height: '100%',
+        width: '100%',
     };
 
     return (
-        <div style={progressCtrStyle} className='pulse'>
+        <div style={progressCtrStyle}>
             <div style={frontStyle}>
                 <div style={imgPreviewStyle}/>
                 <div style={imgProgressStyle}/>

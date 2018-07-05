@@ -72,7 +72,7 @@ const App = () => (
                 align='center'
                 style={styles.typography}
             >
-                React File Uploader Demo
+                ReactJS File Uploader Demo
             </Typography>
 
             <Typography

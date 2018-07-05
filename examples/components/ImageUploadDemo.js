@@ -42,8 +42,8 @@ const styles = {
 
     },
     fileStyle: {
-        width: 'inherit',
-        height: 150,
+        width: '100%',
+        height: '100%',
         border: 'thin solid #eee',
         borderRadius: 10,
         overflow: 'hidden',
@@ -225,6 +225,7 @@ class ImageUploadDemo extends React.Component {
 
                 const fileContainerStyle = {
                     width: 150,
+                    height: 150,
                     margin: 25,
                 };
 
@@ -260,7 +261,7 @@ class ImageUploadDemo extends React.Component {
                             style={styles.buttonStyle}
                             variant="fab"
                             color="primary"
-                            onClick={data.uploadFile}
+                            onClick={data.startUpload}
                         >
                             <Icon>cloud_upload</Icon>
                         </Button>
@@ -281,7 +282,7 @@ class ImageUploadDemo extends React.Component {
                             style={styles.buttonStyle}
                             variant="fab"
                             color="primary"
-                            onClick={data.uploadFile}
+                            onClick={data.startUpload}
                         >
                             {progress || 0}
                         </Button>
@@ -301,7 +302,7 @@ class ImageUploadDemo extends React.Component {
                         <Button
                             style={styles.buttonStyle}
                             variant="fab"
-                            onClick={data.uploadFile}
+                            onClick={data.startUpload}
                         >
                             <Icon>check</Icon>
                         </Button>

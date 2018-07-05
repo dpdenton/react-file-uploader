@@ -50,7 +50,7 @@ class Vanilla extends React.Component {
         return (
             <div>
                 {data.fileData && <img src={data.fileData} width={200} />}
-                {data.uploadFile && <button onClick={data.uploadFile}>Upload File</button>}
+                {data.startUpload && <button onClick={data.startUpload}>Upload File</button>}
                 {data.requestState && data.requestState}
             </div>
         )
